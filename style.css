@@ -8,6 +8,8 @@ body {
     width: 100vw;
     display: flex;
     flex-direction: column;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #temp-search {
@@ -36,10 +38,21 @@ body {
 
 .temp-icon-container {
     height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temp-icon-container h1 {
+    font-size: 100px;
+    /* width: 60%; */
 }
 
 .current-condition {
     height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .extra-data-container {
@@ -49,12 +62,50 @@ body {
     grid-template-rows: 50% 50%;
 }
 
-form {
+.extra-data-container div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-logo {
     width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
+}
+
+input {
+    width: 50%;
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0 5px 0 5px;
+}
+
+button {
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+}
+
+.logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.error-display {
+    
 }
 
 #forecast {
@@ -71,6 +122,7 @@ form {
 #forecast-day-display {
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
 #forecast-day-display > div {
@@ -87,6 +139,9 @@ form {
 
 .forecast-condition {
     width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .forecast-icon {
@@ -105,12 +160,52 @@ footer {
 
 @media only screen and (max-width: 660px) {
     body {
+        border: 2px solid green;
         height: fit-content;
+        font-size: 13px;
+    }
+
+    .temp-icon-container h1 {
+        font-size: 50px;
     }
 
     #temp-search {
         height: 80vh;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
     }
+
+    .form-logo {
+        width: 100%;
+        height: 30%;
+    }
+
+    #current-display {
+        width: 100%;
+        height: 80%;
+    }
+
+    #forecast {
+        flex-direction: column;
+        gap: 10px;
+        height: 1000px
+    }
+
+    #forecast-day-display {
+        align-items: center;
+    }
+
+    .forecast-condition-icon-container {
+        width: 80%;
+    }
+
+    .forecast-condition {
+        width: 50%;
+        flex-wrap: wrap;
+    }
+
 
     footer {
         height: 40px;

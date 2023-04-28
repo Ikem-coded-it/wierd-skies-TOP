@@ -17,13 +17,13 @@ class UIControls {
         const humidity = document.getElementsByClassName('humidity-display')[0]
 
         location.innerText = `${data.location.name}, ${data.location.country}`;
-        currentTemp.innerText = data.current.temp_c;
+        currentTemp.innerText = data.current.temp_c+'°C';
         currentIcon.src = data.current.condition.icon;
         currentCondition.innerText = data.current.condition.text;
-        feelsLike.innerText = data.current.feelslike_c;
-        visibility.innerText = data.current.vis_km + 'km';
-        wind.innerText = data.current.wind_kph + 'kph';
-        humidity.innerText = data.current.humidity;
+        feelsLike.innerText = 'Feels like: '+data.current.feelslike_c+'°C';
+        visibility.innerText = 'Visibility: '+data.current.vis_km + 'km';
+        wind.innerText = 'Wind: '+data.current.wind_kph + 'kph';
+        humidity.innerText = 'Humidity: '+data.current.humidity;
 
         // POPULATE WEATHER FORECAST DISPLAYS
         const forecastWeatherData = data.forecast.forecastday;
@@ -49,14 +49,19 @@ class UIControls {
         })
     }
 }
+const uiControls = new UIControls()
 
 async function getWeather(location) {
-    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=c8771c06f7cc48b0828190952232704&q=${location}&days=8`, {
-        mode: 'cors',
-    })
+    try {
+        const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=c8771c06f7cc48b0828190952232704&q=${location}&days=8`, {
+            mode: 'cors',
+        })
 
-    const jsonResponse = await response.json()
-    return jsonResponse;
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 async function defaultLocationWeather() {
@@ -69,15 +74,15 @@ function searchLocationWeather() {
     form.addEventListener('submit', async(e) => {
         e.preventDefault()
         const location = e.target.location.value;
-        const weatherData = await getWeather(location);
-        console.log(weatherData);
+        const customLocationWeatherData = await getWeather(location);
+        uiControls.populatePage(customLocationWeatherData)
     })
 }
 
 async function initialize() {
-    const uiControls = new UIControls()
     const defaultWeatherData = await defaultLocationWeather()
     uiControls.populatePage(defaultWeatherData)
+    searchLocationWeather()
 }
 
 initialize()
