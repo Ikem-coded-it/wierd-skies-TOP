@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#temp-search {
+    height: 70%;
+    width: 100%;
+    display: flex;
+}
+
+#current-display {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#current-display > div {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.default-location {
+    height: 10%;
+}
+
+.temp-icon-container {
+    height: 50%;
+}
+
+.current-condition {
+    height: 10%;
+}
+
+.extra-data-container {
+    height: 30%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+}
+
+form {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#forecast {
+    height: 27%;
+    width: 100%;
+    display: flex;
+    gap: 2px;
+}
+
+#forecast > div {
+    flex: 1;
+}
+
+#forecast-day-display {
+    display: flex;
+    flex-direction: column;
+}
+
+#forecast-day-display > div {
+    height: 50%;
+}
+
+#forecast-day-display span {
+    height: 10%;
+}
+
+.forecast-condition-icon-container {
+    display: flex;
+}
+
+.forecast-condition {
+    width: 60%;
+}
+
+.forecast-icon {
+    width: 40%;
+}
+
+div {
+    border: 1px solid black;
+}
+
+footer {
+    border: 1px solid red;
+    height: 3%;
+    width: 100%;
+}
+
+@media only screen and (max-width: 660px) {
+    body {
+        height: fit-content;
+    }
+
+    #temp-search {
+        height: 80vh;
+    }
+
+    footer {
+        height: 40px;
+    }
+}
