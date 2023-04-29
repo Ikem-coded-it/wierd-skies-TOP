@@ -2,11 +2,22 @@
 // c8771c06f7cc48b0828190952232704
 
 class UIControls {
-    currentDisplay = document.querySelector('#current-display');
-    forecastDisplays = document.querySelectorAll('#display');
 
-    async populatePage(data) {
+    async populatePage(data, tempType) {
         // POPULATE CURRENT WEATHER DISPLAY
+        let currentTempValue
+        let feelsLikeValue
+
+        // get celcius or farenheit from api data and assign to variables
+        if (tempType == 'celcius') {
+            currentTempValue = data.current.temp_c+'°C';
+            feelsLikeValue = 'Feels like: '+data.current.feelslike_c+'°F'
+        } else if (tempType == 'fahrenheit') {
+            currentTempValue = data.current.temp_f+'°F';
+            feelsLikeValue = 'Feels like: '+data.current.feelslike_f+'°F'
+        }
+
+
         const location = document.getElementsByClassName('default-location')[0]
         const currentTemp = document.getElementById('current-temp');
         const currentIcon = document.getElementsByClassName('current-icon')[0];
@@ -17,10 +28,10 @@ class UIControls {
         const humidity = document.getElementsByClassName('humidity-display')[0]
 
         location.innerText = `${data.location.name}, ${data.location.country}`;
-        currentTemp.innerText = data.current.temp_c+'°C';
+        currentTemp.innerText = currentTempValue;
         currentIcon.src = data.current.condition.icon;
         currentCondition.innerText = data.current.condition.text;
-        feelsLike.innerText = 'Feels like: '+data.current.feelslike_c+'°C';
+        feelsLike.innerText = feelsLikeValue;
         visibility.innerText = 'Visibility: '+data.current.vis_km + 'km';
         wind.innerText = 'Wind: '+data.current.wind_kph + 'kph';
         humidity.innerText = 'Humidity: '+data.current.humidity;
@@ -32,6 +43,17 @@ class UIControls {
         const forecastDisplaysArr = Array.from(forecastDisplays);
         
         forecastWeatherData.forEach(day => {
+            let maxTempValue;
+            let minTempValue;
+
+            if (tempType == 'celcius') {
+                maxTempValue = 'Max: ' + day.day.maxtemp_c + '°C';
+                minTempValue = 'Min: ' + day.day.mintemp_c + '°C';
+            } else if (tempType == 'fahrenheit') {
+                maxTempValue = 'Max: ' + day.day.maxtemp_f + '°F';
+                minTempValue = 'Min: ' + day.day.mintemp_f + '°F';
+            }
+
             const dayIndex = forecastWeatherData.indexOf(day);
             const dayDisplay = forecastDisplaysArr[dayIndex]
             
@@ -44,8 +66,22 @@ class UIControls {
             forecastDate.innerText = day.date;
             forecastCondition.innerText = day.day.condition.text;
             forecastIcon.src = day.day.condition.icon;
-            forecastMaxTemp.innerText = 'Max: ' + day.day.maxtemp_c + '°C';
-            forecastMinTemp.innerText = 'Min: ' + day.day.mintemp_c + '°C';
+            forecastMaxTemp.innerText = maxTempValue;
+            forecastMinTemp.innerText = minTempValue;
+        })
+    }
+
+    temperatureSwitch() {
+        const toggle = document.getElementsByClassName('toggle')[0];
+        const switchBtn = document.getElementsByClassName('swittch')[0];
+
+        toggle.addEventListener('click', (e) => {
+            e.target.classList.toggle('farenheit')
+            if (e.target.classList.length > 1) { // would have more than one class if 'fahrenheit' is toggled
+                showFahrenheit()
+            } else {
+                showCelcius()
+            }
         })
     }
 }
@@ -75,14 +111,29 @@ function searchLocationWeather() {
         e.preventDefault()
         const location = e.target.location.value;
         const customLocationWeatherData = await getWeather(location);
-        uiControls.populatePage(customLocationWeatherData)
+        uiControls.populatePage(customLocationWeatherData, 'celcius')
     })
+}
+
+async function showFahrenheit() {
+    const locationDisplay = document.getElementsByClassName('default-location')[0];
+    const weatherData = await getWeather(locationDisplay.innerText);
+    uiControls.populatePage(weatherData, 'fahrenheit')
+    return
+}
+
+async function showCelcius() {
+    const locationDisplay = document.getElementsByClassName('default-location')[0];
+    const weatherData = await getWeather(locationDisplay.innerText);
+    uiControls.populatePage(weatherData, 'celcius')
+    return
 }
 
 async function initialize() {
     const defaultWeatherData = await defaultLocationWeather()
-    uiControls.populatePage(defaultWeatherData)
+    uiControls.populatePage(defaultWeatherData, 'celcius')
     searchLocationWeather()
+    uiControls.temperatureSwitch()
 }
 
 initialize()

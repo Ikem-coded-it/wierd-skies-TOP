@@ -32,8 +32,52 @@ body {
     flex-direction: column;
 }
 
+.location-switch-container {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px 0 5px;
+}
+
 .default-location {
     height: 10%;
+}
+
+.switch {
+    height: 30px;
+    width: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px 0 5px;
+    border-radius: 25%;
+    position: relative;
+}
+
+.c {
+    margin-left: 10px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.f {
+    margin-right: 10px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.toggle {
+    width: 30px;
+    height: 30px;
+    border-radius: 40%;
+    transition: transform 200ms ease-in-out;
+    position: absolute;
+}
+
+.farenheit {
+    transform: translateX(120%);
+    transition: transform 200ms ease-in-out;
 }
 
 .temp-icon-container {
@@ -161,6 +205,14 @@ footer {
         font-size: 13px;
     }
 
+    .location-switch-container {
+        height: 80px;
+    }
+
+    .farenheit {
+        transform: translateX(120%);
+    }
+
     .temp-icon-container h1 {
         font-size: 50px;
     }
@@ -171,6 +223,7 @@ footer {
         justify-content: flex-start;
         align-items: center;
         gap: 20px;
+        margin-bottom: 10px;
     }
 
     .form-logo {
@@ -186,7 +239,7 @@ footer {
     #forecast {
         flex-direction: column;
         gap: 10px;
-        height: 1000px
+        height: 1000px;
     }
 
     #forecast-day-display {
@@ -202,8 +255,8 @@ footer {
         flex-wrap: wrap;
     }
 
-
     footer {
         height: 40px;
+        margin-top: 30px;
     }
 }
