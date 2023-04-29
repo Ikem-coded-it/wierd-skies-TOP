@@ -89,7 +89,7 @@ const uiControls = new UIControls()
 
 async function getWeather(location) {
     try {
-        const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=c8771c06f7cc48b0828190952232704&q=${location}&days=8`, {
+        const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=c8771c06f7cc48b0828190952232704&q=${location}&days=8`, {
             mode: 'cors',
         })
 
