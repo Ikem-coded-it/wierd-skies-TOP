@@ -5,8 +5,8 @@ class UIControls {
 
     async populatePage(data, tempType) {
         // POPULATE CURRENT WEATHER DISPLAY
-        let currentTempValue
-        let feelsLikeValue
+        let currentTempValue;
+        let feelsLikeValue;
 
         // get celcius or farenheit from api data and assign to variables
         if (tempType == 'celcius') {
