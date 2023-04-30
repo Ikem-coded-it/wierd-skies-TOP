@@ -3,13 +3,29 @@
     padding: 0;
 }
 
+@font-face {
+    font-family: "Secular one";
+    src: url("./Secular_One/SecularOne-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Righteous";
+    src: url("./Righteous/Righteous-Regular.ttf");
+}
+
+:root {
+    --main-color: #fcd34d;
+    --font-color: #e7e5e4;
+}
+
 body {
     height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "Secular one";
+    color: var(--font-color);
 }
 
 #temp-search {
@@ -53,18 +69,21 @@ body {
     padding: 0 5px 0 5px;
     border-radius: 25%;
     position: relative;
+    background-color: var(--main-color);
 }
 
 .c {
     margin-left: 10px;
     z-index: 1;
     pointer-events: none;
+    color: black;
 }
 
 .f {
     margin-right: 10px;
     z-index: 1;
     pointer-events: none;
+    color: black;
 }
 
 .toggle {
@@ -73,6 +92,8 @@ body {
     border-radius: 40%;
     transition: transform 200ms ease-in-out;
     position: absolute;
+    background-color: var(--font-color);
+    border: 1px solid black;
 }
 
 .farenheit {
@@ -89,7 +110,7 @@ body {
 
 .temp-icon-container h1 {
     font-size: 100px;
-    /* width: 60%; */
+    color: var(--main-color)
 }
 
 .current-condition {
@@ -97,6 +118,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 40px;
 }
 
 .extra-data-container {
@@ -134,25 +156,38 @@ input {
     font-size: 15px;
     font-weight: bold;
     padding: 0 5px 0 5px;
+    border-radius: 5px;
+    border: none;
+    color: #525252;
 }
 
 button {
     width: 100px;
     height: 40px;
     font-weight: bold;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+button:hover {
+    background-color: #fbbf24;
 }
 
 .logo {
     position: absolute;
     top: 0;
     right: 0;
+    font-family: "Righteous";
+    font-size: 50px;
 }
 
 #forecast {
     height: 27%;
     width: 100%;
     display: flex;
-    gap: 2px;
+    gap: 5px;
 }
 
 #forecast > div {
@@ -162,7 +197,10 @@ button {
 #forecast-day-display {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
+    background: linear-gradient(#e7e5e430, #e7e5e440);
+    border-radius: 10px;
+    padding-bottom: 10px;
 }
 
 #forecast-day-display > div {
@@ -171,36 +209,50 @@ button {
 
 #forecast-day-display span {
     height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#forecast-day-display .date {
+    color: var(--main-color)
 }
 
 .forecast-condition-icon-container {
     display: flex;
+    margin: 0 5px 0 5px;
 }
 
-.forecast-condition {
+.forecast-condition-icon-container img {
+    height: 60px;
+    width: 60px;
+}
+
+.forecast-condition-icon-container .forecast-condition {
     width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.forecast-icon {
-    width: 40%;
-}
-
-div {
-    border: 1px solid black;
-}
-
 footer {
-    border: 1px solid red;
     height: 3%;
     width: 100%;
+    background-color: #e7e5e4;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+footer .fa-github {
+    color: var(--main-color);
 }
 
 @media only screen and (max-width: 660px) {
     body {
-        border: 2px solid green;
         height: fit-content;
         font-size: 13px;
     }
@@ -231,9 +283,27 @@ footer {
         height: 30%;
     }
 
+    .logo {
+        font-size: 20px;
+    }
+
     #current-display {
         width: 100%;
         height: 80%;
+        margin-bottom: 30px;
+    }
+
+    .current-condition {
+        font-size: 20px;
+    }
+
+    form input {
+        height: 30px;
+    }
+
+    button {
+        height: 30px;
+        width: 70px;
     }
 
     #forecast {
@@ -244,6 +314,12 @@ footer {
 
     #forecast-day-display {
         align-items: center;
+        gap: 2px;
+        padding: 0;
+    }
+
+    #forecast-day-display span {
+        margin-top: 5px;
     }
 
     .forecast-condition-icon-container {
@@ -258,5 +334,11 @@ footer {
     footer {
         height: 40px;
         margin-top: 30px;
+        font-size: 20px;
+    }
+
+    footer .fa-github {
+        color: var(--main-color);
+        font-size: 30px;
     }
 }

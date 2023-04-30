@@ -11,7 +11,7 @@ class UIControls {
         // get celcius or farenheit from api data and assign to variables
         if (tempType == 'celcius') {
             currentTempValue = data.current.temp_c+'°C';
-            feelsLikeValue = 'Feels like: '+data.current.feelslike_c+'°F'
+            feelsLikeValue = 'Feels like: '+data.current.feelslike_c+'°C'
         } else if (tempType == 'fahrenheit') {
             currentTempValue = data.current.temp_f+'°F';
             feelsLikeValue = 'Feels like: '+data.current.feelslike_f+'°F'
@@ -69,6 +69,8 @@ class UIControls {
             forecastMaxTemp.innerText = maxTempValue;
             forecastMinTemp.innerText = minTempValue;
         })
+
+        changeBackground(data.current.condition.text);
     }
 
     temperatureSwitch() {
@@ -83,6 +85,14 @@ class UIControls {
                 showCelcius()
             }
         })
+    }
+
+    populateFooter() {
+        console.log('here')
+        const footer = document.getElementsByTagName('footer')[0];
+        console.log(footer)
+        footer.innerHTML = `Ikem-coded-it ${new Date().getFullYear()} <a href='https://github.com/ikem-coded-it'><i class="fa-brands fa-github"></i></a>`;
+        return;
     }
 }
 const uiControls = new UIControls()
@@ -129,11 +139,57 @@ async function showCelcius() {
     return
 }
 
+function changeBackground(condition) {
+    const body = document.getElementsByTagName('body')[0];
+    if (window.innerWidth > 600) {
+        if (condition == 'Cloudy' || condition == 'Partly cloudy' || condition == 'Overcast') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./desktop-images/desktop-wallpaper-res-1920x1080-new-anime-scenery-gallery-beautiful-cloudy-sky-anime.jpg)"
+        } else if (condition == 'Sunny') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./desktop-images/desktop-wallpaper-anime-one-piece-thousand-sunny-one-piece-ship.jpg)"
+        } else if (condition == 'Clear') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./desktop-images/7ee273a18589fea7f01a9a5fac0af817.jpg)"
+        } else if (condition == 'Patchy rain' || condition == 'Light rain' || condition == 'Moderate rain' || condition == 'Patchy rain possible' || condition == 'Light rain shower') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./desktop-images/desktop-wallpaper-anime-girls-on-boat-rain-original.jpg)"
+        } else if (condition == 'Heavy rain') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./desktop-images/desktop-wallpaper-itachi-and-kisame-naruto-anime-itachi-rain.jpg)"
+        } else {
+            body.style.backgroundImage = "";
+            body.style.backgroundColor = "#1e293b"
+        }
+    } else {
+        if (condition == 'Partly cloudy') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/7836c9a700783439f5396c8ce99b64fb.jpg)"
+        } else if (condition == 'Cloudy') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/5ce247339962eba8b28a718c53ccd885.jpg)"
+        } else if (condition == 'Overcast') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/desktop-wallpaper--thumbnail.jpg)"
+        } else if (condition == 'Sunny') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/c153486fc0be00cb9c421149967d08e4.jpg)"
+        } else if (condition == 'Clear') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/6529f13ead31327992dc46a276a3b84b.jpg)"
+        } else if (condition == 'Patchy rain' || condition == 'Patchy rain possible') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/desktop-wallpaper-sad-kakashi-kakashihatake-rain-art-fictional-character-hatake-anbu-naruto-sharingan-akatsuki-rin-manga-obito-anime.jpg)"
+        } else if (condition == 'Light rain' || condition == 'Moderate rain' || condition == 'Light rain shower') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/086f1d40a3b16f48b7c0357aae552d2e.jpg)"
+        } else if (condition == 'Heavy rain') {
+            body.style.background = "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),url(./mobile-images/desktop-wallpaper-anime-rain-atmosphere-sky-anime-girl-thumbnail.jpg)"
+        } else {
+            body.style.backgroundImage = "";
+            body.style.backgroundColor = "#1e293b"
+        }
+    }
+    body.style.backgroundSize = "cover";
+    body.style.backgroundRepeat = "no-repeat";
+    body.style.backgroundPosition = "center";
+    body.style.transition = "background 500ms ease-in-out";
+}
+
 async function initialize() {
     const defaultWeatherData = await defaultLocationWeather()
     uiControls.populatePage(defaultWeatherData, 'celcius')
     searchLocationWeather()
     uiControls.temperatureSwitch()
+    uiControls.populateFooter()
 }
 
 initialize()
