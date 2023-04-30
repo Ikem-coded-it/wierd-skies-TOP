@@ -75,8 +75,6 @@ class UIControls {
 
     temperatureSwitch() {
         const toggle = document.getElementsByClassName('toggle')[0];
-        const switchBtn = document.getElementsByClassName('swittch')[0];
-
         toggle.addEventListener('click', (e) => {
             e.target.classList.toggle('farenheit')
             if (e.target.classList.length > 1) { // would have more than one class if 'fahrenheit' is toggled
@@ -85,6 +83,12 @@ class UIControls {
                 showCelcius()
             }
         })
+    }
+
+    switchBackTemp() {
+        const toggle = document.getElementsByClassName('toggle')[0];
+        if (toggle.classList.length > 1) toggle.classList.remove('farenheit');
+        return
     }
 
     populateFooter() {
@@ -122,6 +126,7 @@ function searchLocationWeather() {
         const location = e.target.location.value;
         const customLocationWeatherData = await getWeather(location);
         uiControls.populatePage(customLocationWeatherData, 'celcius')
+        uiControls.switchBackTemp()
     })
 }
 
